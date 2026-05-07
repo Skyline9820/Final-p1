@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sabor Mío Empanizador. Descubre el sabor premium, extra crunchy y de mayor rendimiento para tus platillos.">
+    <meta name="theme-color" content="#D14B1A">
+    
+    <title>Sabor Mío | Empanizador Premium</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:wght@300;400;600;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* PALETA DE COLORES SABOR MÍO */
+            --sm-green-dark: #5B6135;
+            --sm-orange: #D14B1A;
+            --sm-red: #901913;
+            --sm-gold: #AF7F00;
+            --sm-yellow: #FFCF00;
+            --sm-neutral: #D6D1C8;
+            
+            /* COLORES MANGO (Para el Navbar y Footer) */
+            --mango: #fdea14;
+            --dark: #1C1C1C;  
+            --white: #FFFFFF;
+            --light-bg: #FDFDFD; 
+            
+            /* Efectos cristal */
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --shadow-soft: 0 20px 40px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 30px 60px rgba(209, 75, 26, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* MAGIA PARA QUE EL MENÚ NO TAPE LAS SECCIONES */
+        html { 
+            scroll-behavior: smooth; 
+            scroll-padding-top: 120px; 
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark);
+            font-family: 'Open Sans', sans-serif;
+            overflow-x: hidden;
+            width: 100%;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, .font-title { font-family: 'EB Garamond', serif; }
+
+        /* =========================================
+           NAVBAR ESTRUCTURA MAESTRA (Estilo Sabor Mío)
+           ========================================= */
+        .navbar {
+            position: fixed;
+            top: 25px; 
+            left: 50%;
+            transform: translateX(-50%); 
+            width: 95%;
+            max-width: 1400px;
+            padding: 10px 30px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10000;
+            background: var(--glass-bg); 
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-radius: 50px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+            transition: all 0.4s ease;
+            border: 1px solid var(--glass-border);
+        }
+
+        .navbar.scrolled {
+            top: 15px;
+            padding: 8px 30px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1); 
+        }
+
+        /* 1. IZQUIERDA: Logo Mango BC */
+        .logo { text-decoration: none; display: flex; align-items: center; z-index: 1002; transition: transform 0.3s; }
+        .logo:hover { transform: scale(1.05) translateY(-2px); }
+        .nav-logo-wrapper {
+            display: flex; align-items: center; justify-content: center;
+            padding: 2px 0;
+        }
+        .nav-logo { height: 38px !important; width: auto !important; display: block; object-fit: contain; }
+
+        /* 2. CENTRO: Logo Marca (Sabor Mío) */
+        .brand-center-logo {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1002;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .brand-center-logo:hover {
+            transform: translateX(-50%) scale(1.08) translateY(-2px);
+        }
+        .brand-logo-img {
+            height: 45px; 
+            width: auto;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+
+        /* 3. DERECHA: Enlaces y CTA */
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px; 
+            align-items: center;
+            margin: 0;
+            z-index: 1001;
+        }
+        .nav-links li a {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--dark);
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+        .nav-links li a:hover { color: var(--sm-orange); }
+
+        .nav-cta {
+            background-color: var(--sm-red) !important; 
+            color: var(--white) !important;
+            font-family: 'Open Sans', sans-serif !important;
+            font-weight: 700 !important;
+            font-size: 0.85rem !important;
+            padding: 10px 24px !important;
+            border-radius: 50px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            background-color: var(--sm-orange) !important;
+            box-shadow: 0 6px 15px rgba(209, 75, 26, 0.3); 
+        }
+
+        /* HAMBURGUESA */
+        .hamburger { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1002; padding: 10px;}
+        .hamburger span { width: 30px; height: 3px; background-color: var(--dark); border-radius: 3px; transition: transform 0.4s, opacity 0.4s; }
+
+        @media (max-width: 992px) {
+            .navbar { width: 100%; top: 0; border-radius: 0; padding: 15px 5%; border: none; border-bottom: 2px solid rgba(0,0,0,0.05); }
+            .navbar.scrolled { top: 0; }
+            .hamburger { display: flex; }
+            .brand-logo-img { height: 35px; }
+            .nav-logo { height: 28px !important; }
+            
+            .nav-links { position: fixed; top: 0; left: 100%; width: 100%; height: 100vh; background: var(--light-bg); flex-direction: column; justify-content: center; align-items: center; gap: 40px; transition: left 0.4s ease; z-index: 1001; }
+            .nav-links.active { left: 0; }
+            .nav-links li a { font-size: 1.5rem; }
+            .nav-cta { font-size: 1.1rem !important; padding: 15px 30px !important; }
+            
+            .hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+            .hamburger.active span:nth-child(2) { opacity: 0; }
+            .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+        }
+
+        /* REVEAL ANIMATIONS */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; } 
+        .delay-2 { transition-delay: 0.2s; }
+
+        /* BOTONES GLOBALES */
+        .btn-primary { background: var(--sm-orange); color: var(--white); padding: 18px 40px; border-radius: 50px; font-weight: 700; text-decoration: none; text-transform: uppercase; font-size: 0.85rem; transition: all 0.3s; display: inline-block; text-align: center; border: none; cursor: pointer; letter-spacing: 1px;}
+        .btn-primary:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(209, 75, 26, 0.3); background: var(--sm-red); }
+
+        /* =========================================
+           HERO SABOR MÍO
+           ========================================= */
+        .hero-sabor-mio {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            background-image: url('sabormiofondo.jpg'); 
+            background-size: cover;
+            background-position: center bottom;
+            background-repeat: no-repeat;
+            padding: 100px 5% 60px; /* Reducido para subir contenido */
+            overflow: hidden;
+        }
+
+        .hero-text-container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 850px;
+            margin-top: -100px; /* Aumentado en negativo para subirlo más */
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.4) 40%, rgba(255,255,255,0) 70%);
+            padding: 20px 50px;
+        }
+        
+        .hero-title {
+            font-size: clamp(3.5rem, 6vw, 6rem); 
+            font-weight: 700;
+            color: var(--sm-green-dark); 
+            line-height: 1.05;
+            margin-bottom: 0px; 
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            text-shadow: 0 4px 15px rgba(255,255,255,0.8); 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .hero-title span { color: var(--sm-orange); font-style: italic; }
+
+        .hero-desc {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            color: #444;
+            line-height: 1.6;
+            margin-top: -40px; /* AÚN MÁS NEGATIVO: Se subió a -40px */
+            margin-bottom: 25px;
+            font-weight: 600;
+            text-shadow: 0 2px 10px rgba(255,255,255,0.8);
+            position: relative; /* Asegura que se dibuje por encima de la imagen si hay cruce */
+            z-index: 3;
+        }
+
+        /* =========================================
+           SECCIÓN ATRIBUTOS (Grid Dios)
+           ========================================= */
+        .seccion-atributos { padding: 120px 5%; background-color: var(--white); position: relative; z-index: 2; }
+        .section-title { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; color: var(--dark); margin-bottom: 20px; line-height: 1.1; text-align: center; text-transform: uppercase;}
+        .section-title span { color: var(--sm-orange); font-style: italic;}
+        .section-desc { font-size: 1.1rem; color: #666; max-width: 700px; margin: 0 auto 60px; line-height: 1.6; text-align: center; }
+
+        .ventas-grid-dios { 
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; 
+            max-width: 1400px; margin: 0 auto; align-items: stretch;
+        }
+        
+        .venta-dios-card {
+            background: var(--white); border: 1px solid #EAEAEA; border-radius: 30px; 
+            padding: 40px 30px; display: flex; flex-direction: column; text-align: center;
+            transition: all 0.4s ease; box-shadow: var(--shadow-soft); 
+        }
+        .venta-dios-card:hover { transform: translateY(-8px); border-color: var(--sm-yellow); box-shadow: var(--shadow-hover); }
+
+        .icon-wrapper {
+            width: 80px; height: 80px; background: #FFF9F5; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            margin: 0 auto 20px auto; border: 2px solid var(--sm-gold);
+            font-size: 2rem; color: var(--sm-orange);
+        }
+
+        .venta-dios-card h3 { font-size: 1.8rem; color: var(--sm-green-dark); margin-bottom: 15px; }
+        .venta-dios-card p { color: #666; font-size: 0.95rem; line-height: 1.6; }
+
+        /* =========================================
+           SECCIÓN SABORES (MARQUEE CON IMÁGENES COMPLETAS)
+           ========================================= */
+        .seccion-sabores {
+            background: var(--light-bg);
+            padding: 100px 0; 
+            overflow: hidden;
+        }
+        
+        .sabores-header {
+            padding: 0 5%;
+            margin-bottom: 50px;
+        }
+
+        .sabores-marquee-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: var(--white);
+            padding: 50px 0;
+            border-top: 1px solid #EAEAEA;
+            border-bottom: 1px solid #EAEAEA;
+        }
+
+        .sabores-track {
+            display: flex;
+            flex-wrap: nowrap;
+            width: max-content;
+            animation: scrollSabores 50s linear infinite; 
+            will-change: transform;
+        }
+
+        .sabor-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            background: var(--dark);
+            border: 1px solid #EAEAEA;
+            border-radius: 20px;
+            overflow: hidden; /* Corta la imagen a las esquinas redondeadas */
+            padding: 0; /* Sin padding interno */
+            margin: 0 15px;
+            width: 280px;  
+            height: 320px;  
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Degradado inferior para resaltar el texto */
+        .sabor-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        .sabor-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--sm-orange);
+            box-shadow: 0 15px 30px rgba(209, 75, 26, 0.2);
+        }
+
+        .sabor-card img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            transition: transform 0.6s ease;
+        }
+
+        .sabor-card:hover img {
+            transform: scale(1.1) rotate(2deg);
+        }
+
+        .sabor-card span {
+            position: relative;
+            z-index: 3;
+            font-family: 'EB Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-align: center;
+            line-height: 1.2;
+            width: 100%;
+            padding: 25px 15px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+        }
+
+        .sabores-marquee-container:hover .sabores-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollSabores { 
+            0% { transform: translateX(0); } 
+            100% { transform: translateX(-50%); } 
+        }
+
+        /* =========================================
+           SECCIÓN PRODUCTO INSTITUCIONAL (UNA SOLA VISUALIZACIÓN)
+           ========================================= */
+        .que-es { 
+            position: relative;
+            padding: 60px 5%; /* Menos padding para ahorrar espacio */
+            height: 100vh; /* Fuerza a ocupar exactamente la pantalla */
+            min-height: 700px; /* Evita que colapse en pantallas muy chicas */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-image: url('sabormiofondo.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; 
+            overflow: hidden;
+        }
+
+        .que-es::before {
+            content: ''; 
+            position: absolute; 
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(28, 28, 28, 0.85); 
+            z-index: 0;
+        }
+
+        .que-es-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        /* Ajuste de título para que quite menos espacio */
+        .que-es-content .section-title { margin-bottom: 10px; }
+        .que-es-content p.desc { color: #DDD; font-size: 1.1rem; line-height: 1.5; margin-bottom: 0; text-align: center;}
+
+        .b2b-list {
+            width: 100%;
+            margin: 30px auto 0;
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .b2b-row {
+            display: flex;
+            align-items: center;
+            padding: 25px 15px; /* Listas más apretadas */
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+        }
+
+        .b2b-row:hover {
+            padding-left: 30px;
+            background: linear-gradient(90deg, rgba(209, 75, 26, 0.15) 0%, transparent 100%);
+        }
+
+        .b2b-icon {
+            font-size: 2.2rem;
+            width: 60px;
+            flex-shrink: 0;
+            color: var(--sm-orange);
+            transition: transform 0.4s ease;
+        }
+
+        .b2b-row:hover .b2b-icon {
+            transform: scale(1.1) rotate(-10deg);
+        }
+
+        .b2b-content {
+            flex: 1;
+            padding-right: 20px;
+        }
+
+        .b2b-content h4 {
+            font-size: 1.5rem; /* Tipografía más compacta */
+            color: var(--sm-yellow);
+            margin-bottom: 5px;
+            line-height: 1.1;
+        }
+
+        .b2b-content p {
+            color: #DDD;
+            font-size: 0.95rem; /* Párrafo más chico */
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .b2b-weight {
+            text-align: right;
+            min-width: 120px;
+            color: var(--white);
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .b2b-weight span {
+            display: block;
+            color: var(--sm-orange);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 3px;
+        }
+
+        .inst-footer {
+            text-align: center;
+            margin-top: 40px; /* Menos espacio hacia el botón */
+        }
+
+        /* =========================================
+           SECCIÓN LOGÍSTICA B2B
+           ========================================= */
+        .logistica-b2b {
+            padding: 100px 5%;
+            background: var(--white);
+            text-align: center;
+        }
+        .logistica-card {
+            background: var(--light-bg);
+            border: 2px dashed #EAEAEA;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .logistica-card h3 {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--sm-green-dark);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .logistica-card p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* =========================================
+           FOOTER CORPORATIVO (Plantilla Maestra)
+           ========================================= */
+        footer { background: var(--dark); padding: 80px 5% 40px; color: var(--white); position: relative;}
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px; max-width: 1400px; margin: 0 auto; }
+        .footer-col h4 { font-family: 'Montserrat', sans-serif; color: var(--mango); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px; font-weight: 700;}
+        .footer-col a { color: #AAA; text-decoration: none; display: block; margin-bottom: 15px; font-size: 0.9rem; transition: color 0.3s; font-family: 'Open Sans', sans-serif;}
+        .footer-col a:hover, .footer-col a:focus { color: var(--white); transform: translateX(5px); outline: none; }
+        .footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 60px; padding-top: 30px; color: #666; font-size: 0.8rem; font-family: 'Open Sans', sans-serif;}
+
+        /* RESPONSIVE */
+        @media (max-width: 1200px) { .ventas-grid-dios { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 992px) {
+            .hero-sabor-mio { padding: 90px 5% 40px; background-position: center center;} /* Reducido también en móvil para subir contenido */
+            .hero-text-container { padding: 10px; }
+            .que-es { height: auto; padding: 100px 5%; } /* En móvil se suelta la altura */
+            .b2b-row { flex-direction: column; align-items: flex-start; text-align: left; padding: 30px 0; gap: 10px;}
+            .b2b-row:hover { padding-left: 0; background: transparent; }
+            .b2b-icon { margin-bottom: 0px; }
+            .b2b-weight { text-align: left; margin-top: 5px;}
+        }
+        @media (max-width: 768px) { 
+            .ventas-grid-dios { grid-template-columns: 1fr; } 
+            .sabor-card { width: 220px; height: 260px; padding: 0; }
+            .sabor-card img { width: 100%; height: 100%; }
+            .sabor-card span { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+    
+    <nav id="navbar" class="navbar">
+        <a href="index.html" class="logo" aria-label="Ir al inicio de Mango BC">
+            <div class="nav-logo-wrapper">
+                <img src="mbc.png" alt="Mango BC Logo" class="nav-logo" loading="eager" decoding="async">
+            </div>
+        </a>
+        
+        <a href="#" class="brand-center-logo" aria-label="Inicio Sabor Mío">
+            <img src="LOGO - SABOR MÍO.png" alt="Sabor Mío" class="brand-logo-img">
+        </a>
+        
+        <div class="hamburger" id="hamburger" role="button" aria-label="Menú de navegación" tabindex="0">
+            <span></span><span></span><span></span>
+        </div>
+        
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#beneficios" class="nav-item">Beneficios</a></li>
+            <li><a href="#sabores" class="nav-item">Sabores</a></li>
+            <li><a href="#producto" class="nav-item">Institucional</a></li>
+            <li><a href="#contacto" class="nav-cta nav-item">DISTRIBUCIÓN</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero-sabor-mio" id="inicio">
+        <div class="hero-text-container reveal">
+            <h1 class="hero-title">
+                <img src="LOGO - SABOR MÍO.png" alt="Sabor Mío" style="max-height: 350px; width: auto; object-fit: contain; mix-blend-mode: multiply;">
+            </h1>
+            <p class="hero-desc">Extra crunchy, rinde más y conserva la frescura. Descubre la línea premium de empanizadores desarrollada para carnes, pescados y mariscos.</p>
+            <a href="#sabores" class="btn-primary">Ver Portafolio de Sabores</a>
+        </div>
+    </section>
+
+    <section class="seccion-atributos" id="beneficios">
+        <div class="reveal">
+            <h2 class="section-title">¿POR QUÉ ELEGIR <br><span>SABOR MÍO?</span></h2>
+            <p class="section-desc">Desarrollado con altos estándares industriales para garantizar la mejor textura, adherencia y sabor en cada bocado.</p>
+        </div>
+        
+        <div class="ventas-grid-dios reveal delay-1">
+            <div class="venta-dios-card">
+                <div class="icon-wrapper">🥩</div>
+                <h3>Especializado</h3>
+                <p>Una línea formulada específicamente para potenciar el sabor de <strong>carnes, pescados y mariscos</strong>.</p>
+            </div>
+            <div class="venta-dios-card">
+                <div class="icon-wrapper">🔥</div>
+                <h3>Extra Crunchy</h3>
+                <p>Logra un dorado perfecto y una textura extra crujiente que se mantiene por mucho más tiempo.</p>
+            </div>
+            <div class="venta-dios-card">
+                <div class="icon-wrapper">📈</div>
+                <h3>Rinde Más!</h3>
+                <p>Nuestra fórmula está diseñada para adherirse perfectamente, optimizando el uso del producto al máximo.</p>
+            </div>
+            <div class="venta-dios-card">
+                <div class="icon-wrapper">✨</div>
+                <h3>Cero Complicaciones</h3>
+                <p>Olvídate de pasos extra y ahorra costos. Nuestro empanizador <strong>no requiere huevo</strong> ni condimentos adicionales.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="seccion-sabores" id="sabores">
+        <div class="sabores-header reveal">
+            <h2 class="section-title">UN SABOR PARA <br><span>CADA PLATILLO</span></h2>
+            <p class="section-desc">Contamos con 9 perfiles de sabor únicos para transformar el menú de cualquier cocina comercial o de hogar.</p>
+        </div>
+        
+        <div class="sabores-marquee-container reveal delay-1">
+            <div class="sabores-track">
+                
+                <div class="sabor-card">
+                    <img src="tresquesos.jpg" alt="Empanizador Tres Quesos" loading="lazy">
+                    <span>TRES QUESOS</span>
+                </div>
+                <div class="sabor-card">
+                    <img src="tocino.jpg" alt="Empanizador Tocino" loading="lazy">
+                    <span>TOCINO</span>
+                </div>
+                <div class="sabor-card">
+                    <img src="jalapeno.jpg" alt="Empanizador Queso Jalapeño" loading="lazy">
+                    <span>QUESO JALAPEÑO</span>
+                </div>
+                <div class="sabor-card">
+                    <img src="finashierbas.jpg" alt="Empanizador Finas Hierbas" loading="lazy">
+                    <span>FINAS HIERBAS</span>
+                </div>
+                <div class="sabor-card">
+                    <img src="pancrujy.jpg" alt="Empanizador Crujipollo" loading="lazy">
+                    <span>CRUJIPOLLO</span>
+                </div>  
+                <div class="sabor-card">
+                    <img src="barbecue.jpg" alt="Empanizador BBQ Barbecue" loading="lazy">
+                    <span>BBQ BARBECUE</span>
+                </div>
+                <div class="sabor-card">
+                    <img src="ajomantequilla.jpg" alt="Empanizador Ajo Mantequilla" loading="lazy">
+                    <span>AJO MANTEQUILLA</span>
+                </div>
+                <div class="sabor-card">
+                    <img src="tresquesos.jpg" alt="Empanizador Tres Quesos" loading="lazy">
+                    <span>TRES QUESOS</span>
+                </div>
+                <div class="sabor-card">
+                    <img src="tocino.jpg" alt="Empanizador Tocino" loading="lazy">
+                    <span>TOCINO</span>
+                </div>
+                <div class="sabor-card">
+                    <img src="jalapeno.jpg" alt="Empanizador Queso Jalapeño" loading="lazy">
+                    <span>QUESO JALAPEÑO</span>
+                </div>
+                <div class="sabor-card">
+                    <img src="finashierbas.jpg" alt="Empanizador Finas Hierbas" loading="lazy">
+                    <span>FINAS HIERBAS</span>
+                </div>
+                <div class="sabor-card">
+                    <img src="pancrujy.jpg" alt="Empanizador Crujipollo" loading="lazy">
+                    <span>CRUJIPOLLO</span>
+                </div>
+                <div class="sabor-card">
+                    <img src="barbecue.jpg" alt="Empanizador BBQ Barbecue" loading="lazy">
+                    <span>BBQ BARBECUE</span>
+                </div>
+                <div class="sabor-card">
+                    <img src="ajomantequilla.jpg" alt="Empanizador Ajo Mantequilla" loading="lazy">
+                    <span>AJO MANTEQUILLA</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="que-es" id="producto">
+        <div class="que-es-content">
+            <div class="reveal" style="text-align: center;">
+                <h2 class="section-title" style="color: var(--white);">LÍNEA B2B & <br><span style="color: var(--sm-orange);">INSTITUCIONAL</span></h2>
+                <p class="desc">Además de nuestra clásica presentación de 170g (y 240g para el sabor Fuego) en bolsa resellable, ofrecemos soluciones integrales para el sector restaurantero y food service.</p>
+            </div>
+            
+            <div class="b2b-list reveal delay-1">
+                <div class="b2b-row">
+                    <div class="b2b-icon">🥖</div>
+                    <div class="b2b-content">
+                        <h4>Pancrujy (Pan Molido)</h4>
+                        <p>Migas de pan seco con ajonjolí. Sin colorantes ni conservadores. Producto artesanal ideal para empanizados saludables.</p>
+                    </div>
+                    <div class="b2b-weight">
+                        <span>Presentaciones</span>
+                        210g / 1kg / 40kg
+                    </div>
+                </div>
+
+                <div class="b2b-row">
+                    <div class="b2b-icon">🌾</div>
+                    <div class="b2b-content">
+                        <h4>Empanizador Crujiente (Gluten Free)</h4>
+                        <p>Nuestra fórmula institucional Libre de Gluten. Perfecto para cumplir con altas exigencias dietéticas en restaurantes.</p>
+                    </div>
+                    <div class="b2b-weight">
+                        <span>Presentaciones</span>
+                        1kg / 40kg
+                    </div>
+                </div>
+
+                <div class="b2b-row">
+                    <div class="b2b-icon">🍯</div>
+                    <div class="b2b-content">
+                        <h4>Granola Horneada</h4>
+                        <p>Mezcla crujiente de avena, frutos secos, pasas y arroz inflado, endulzada con auténtica miel de abeja.</p>
+                    </div>
+                    <div class="b2b-weight">
+                        <span>Presentaciones</span>
+                        Bolsa 500g
+                    </div>
+                </div>
+            </div>
+
+            <div class="inst-footer reveal delay-2">
+                <a href="#contacto" class="btn-primary" style="padding: 16px 40px; font-size: 1.1rem;">Hacer Pedido Industrial</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="logistica-b2b" id="contacto">
+        <div class="reveal">
+            <h2 class="section-title">ABASTECIMIENTO <br><span>GARANTIZADO</span></h2>
+            <div class="logistica-card">
+                <h3>Presentaciones Cajas Máster</h3>
+                <p><strong>Empanizador Saborizado:</strong> Caja de 170g con 56 piezas | Caja de 1kg con 12 piezas.</p>
+                <p><strong>Pan Molido Pancrujy:</strong> Caja de 210g con 60 piezas | Bulto industrial de 40kg.</p>
+                <p><strong>Libre de Gluten:</strong> Caja de 1kg con 15 piezas | Bulto industrial de 40kg.</p>
+                <a href="mailto:ventas@mangobc.com" class="btn-primary" style="margin-top: 20px;">Contactar a Ventas Mayoristas</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid reveal">
+            <div class="footer-col">
+                <div class="footer-logo" style="margin-bottom: 20px;">
+                    <img src="mbc.png" alt="Mango BC" style="height: 50px; width: auto; filter: brightness(0) invert(1);">
+                </div>
+                <p style="color: #888; font-size: 0.9rem; line-height: 1.6; font-family: 'Open Sans', sans-serif;">Morelia, Michoacán<br>México, CP 58000<br>+52 443 332 7430</p>
+            </div>
+            <div class="footer-col">
+                <h4 style="color: var(--mango); font-family: 'Montserrat', sans-serif; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px; font-weight: 700;">Contacto Directo</h4>
+                <a href="mailto:socios@mangobusiness.com" style="color: #AAA; text-decoration: none; display: block; margin-bottom: 15px; font-size: 0.9rem; transition: color 0.3s; font-family: 'Open Sans', sans-serif;">Ventas y Socios</a>
+                <a href="mailto:talento@mangobusiness.com" style="color: #AAA; text-decoration: none; display: block; margin-bottom: 15px; font-size: 0.9rem; transition: color 0.3s; font-family: 'Open Sans', sans-serif;">Atracción de Talento</a>
+                <a href="mailto:compras@mangobusiness.com" style="color: #AAA; text-decoration: none; display: block; margin-bottom: 15px; font-size: 0.9rem; transition: color 0.3s; font-family: 'Open Sans', sans-serif;">Proveedores y Compras</a>
+            </div>
+            <div class="footer-col">
+                <h4 style="color: var(--mango); font-family: 'Montserrat', sans-serif; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px; font-weight: 700;">Redes Sociales</h4>
+                <a href="https://www.linkedin.com/company/mango-business-center" target="_blank" style="color: #AAA; text-decoration: none; display: block; margin-bottom: 15px; font-size: 0.9rem; transition: color 0.3s; font-family: 'Open Sans', sans-serif;">LinkedIn</a>
+                <a href="https://www.instagram.com/mangobusinesscenter" target="_blank" style="color: #AAA; text-decoration: none; display: block; margin-bottom: 15px; font-size: 0.9rem; transition: color 0.3s; font-family: 'Open Sans', sans-serif;">Instagram</a>
+                <a href="https://www.facebook.com/mangobusinesscenter" target="_blank" style="color: #AAA; text-decoration: none; display: block; margin-bottom: 15px; font-size: 0.9rem; transition: color 0.3s; font-family: 'Open Sans', sans-serif;">Facebook</a>
+            </div>
+        </div>
+        <div class="footer-bottom reveal delay-1" style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 60px; padding-top: 30px; color: #666; font-size: 0.8rem; font-family: 'Open Sans', sans-serif;">
+            © 2026 MANGO BUSINESS CENTER
+        </div>
+    </footer>
+
+    <script>
+        // Lógica Navbar Scrolled y Menú Hamburguesa
+        const navbarElement = document.getElementById('navbar');
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+        const navItems = document.querySelectorAll('.nav-item');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbarElement.classList.add('scrolled');
+            } else {
+                navbarElement.classList.remove('scrolled');
+            }
+        });
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Lógica de Reveal Animations 
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        
+        const revealObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target);
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    </script>
+</body>
+</html>
